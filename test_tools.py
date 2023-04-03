@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
 from .Linear_Inverse_Model import LIM
 
-def auto_corr(PCs: np.ndarray, tau_list: int, plot: bool = False, **plot_additional):
+def auto_corr(PCs: np.ndarray, tau_list: np.ndarray, plot: bool = False, **plot_additional):
     corr_list = np.zeros(len(tau_list))
     for i, tau in enumerate(tau_list):
         if tau == 0:
