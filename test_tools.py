@@ -14,6 +14,7 @@ def auto_corr(PCs: np.ndarray, tau_list: int, plot: bool = False, **plot_additio
         plt.figure(figsize = (8, 6))
         plt.scatter(tau_list, corr_list, **plot_additional)
         plt.title("auto correlation", fontsize = 16)
+        plt.show()
     else:
         return corr_list
 
@@ -30,5 +31,6 @@ def tau_test(PCs: np.ndarray, tau_list: np.ndarray, plot: bool = False, **plot_a
         plt.figure(figsize = (8, 6))
         plt.scatter(tau_list, G_list[:, 0, 0], **plot_additional)
         plt.title("tau test", fontsize = 16)
+        plt.show()
     else:
         return G_list
