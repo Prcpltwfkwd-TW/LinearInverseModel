@@ -1,4 +1,5 @@
 import numpy as np
+from scipy.linalg import logm, expm
 import random
 
 class LIM:
@@ -27,9 +28,24 @@ class LIM:
         self.lag  = lag
         self.nt   = ntimestep
         self.G    = None
+        self.G1   = None
         self.e    = None
         self.out  = None
         
+    def _calc_G1(self, G: np.ndarray, lag: int):
+        """
+        Calculating the lag 1 regression coefficient matrix by lag tau
+        
+        Parameters
+        ----------
+        None
+        
+        Returns
+        -------
+        None
+        """
+        return expm(logm(G)/lag)
+    
     def _calc_G(self):
         """
         Calculating the regression coefficient matrix of lead time and lag time
@@ -46,12 +62,15 @@ class LIM:
             x0 = np.copy(self.data[:, :-self.lag])
             xt = np.copy(self.data[:, self.lag:])
         else:
-            raise ValueError("lag must be greater than 0")
-        c0     = np.matmul(x0, x0.T)
-        ct     = np.matmul(xt, x0.T)
-        self.G = np.matmul(ct, np.linalg.inv(c0))
+            x0 = np.copy(self.data[:])
+            xt = np.copy(self.data[:])
+        c0 = np.matmul(x0, x0.T)
+        ct = np.matmul(xt, x0.T)
+        G  = np.matmul(ct, np.linalg.inv(c0))
+        self.G  = G
+        self.G1 = self._calc_G1(self.G, self.lag)
         
-    def _predict(self, PCs, e):
+    def _predict(self, PCs: np.ndarray, e: np.ndarray):
         """
         Using the coefficient matrix and white noise forcing to forecast
 
@@ -63,7 +82,7 @@ class LIM:
         -------
         None
         """
-        predicted = np.dot(self.G, PCs) + e
+        predicted = np.dot(self.G1, PCs) + e
         return predicted
     
     def _calc_e(self):
@@ -99,13 +118,14 @@ class LIM:
         self._calc_G()
         self._calc_e()
     
-    def run(self):
+    def run(self, stochastic = True):
         """
         Running the model and giving the predicted results
 
         Parameters
         ----------
-        None
+        stochastic: bool
+            If True, stochastic forcing will be added while integrating
 
         Returns
         -------
@@ -115,6 +135,7 @@ class LIM:
         self.out[:, 0] = self.Init
         for t in range(self.nt-1):
             epsilon = np.zeros((self.data.shape[0]))
-            for _ in range(self.data.shape[0]):
-                epsilon[_] = random.choice(self.e[_, :])
+            if stochastic:
+                for _ in range(self.data.shape[0]):
+                    epsilon[_] = random.choice(self.e[_, :])
             self.out[:, t+1] = self._predict(self.out[:, t], epsilon)
