@@ -5,7 +5,7 @@
 ```
 class LIM(Init: np.ndarray, data: np.ndarray, lag: int, ntimestep: int)
 ```
-This is a statistic model based on lead-lag linear regression.
+This is a dynamical-statistical model based on red noise processes.
 
 ### Usage
 
