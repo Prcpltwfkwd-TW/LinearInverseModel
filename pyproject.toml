@@ -1,0 +1,37 @@
+[build-system]
+requires = [
+  "hatchling >= 1.26",
+  "numpy>=2.3",
+  "scipy>=1.16",
+  "matplotlib>=3.10",
+  ]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["Linear_Inverse_Model"]
+
+[project]
+name = "Linear_Inverse_Model"
+version = "0.0.1"
+authors = [
+  { name="brownian.motion.99", email="chunhaoc777@gmail.com" },
+]
+description = "A package that providing a linear inverse model can be fast deployed."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICENSE*"]
+
+dependencies = [
+  "numpy>=2.3",
+  "scipy>=1.16",
+  "matplotlib>=3.10",
+  ]
+
+[project.urls]
+Homepage = "https://github.com/Prcpltwfkwd-TW/pyRedNoise.git"
+Issues = "https://github.com/Prcpltwfkwd-TW/pyRedNoise/issues"

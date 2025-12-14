@@ -7,6 +7,20 @@ class LIM(Init: np.ndarray, data: np.ndarray, lag: int, ntimestep: int)
 ```
 This is a dynamical-statistical model based on red noise processes.
 
+### Deployment
+Clone this repository
+```
+git clone https://github.com/Prcpltwfkwd-TW/LinearInverseModel.git
+```
+Change to this directory
+```
+cd LinearInverseModel
+```
+Install this package with ```pip```
+```
+pip install -e .
+```
+
 ### Usage
 
 **Init**: Initial condition that you want to start integrating.
@@ -32,7 +46,7 @@ model.run()
 #model.run(stochastic = False) # turn off the stochastic forcing
 ```
 
-## test_tools.py
+## examination_tools.py
 
 ```
 auto_corr(PCs: np.ndarray, tau_list: int, plot: bool = False, **plot_additional)
