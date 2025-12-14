@@ -9,7 +9,17 @@ This is a dynamical-statistical model based on red noise processes.
 
 ### Deployment
 Clone this repository
-
+```
+git clone https://github.com/Prcpltwfkwd-TW/LinearInverseModel.git
+```
+Change to this directory
+```
+cd LinearInverseModel
+```
+Install this package with ```pip```
+```
+pip install -e .
+```
 
 ### Usage
 
