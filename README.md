@@ -14,7 +14,7 @@ git clone https://github.com/Prcpltwfkwd-TW/LinearInverseModel.git
 ```
 Change to this directory
 ```
-cd LinearInverseModel
+cd linear_inverse_model
 ```
 Install this package with ```pip```
 ```
